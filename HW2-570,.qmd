@@ -3,12 +3,12 @@ title: "STAT570-HW2"
 author: "Levent Sarı - 2290930"
 format: html
 editor: visual
+warning: FALSE
 ---
 
+## Pattern Control
 
-## Patatern Control
-
-It\'s possible to exercise extra control over the details of the match by using a pattern object instead of just a string. This allows you to control the so called regex flags and match various types of fixed strings, as described below.
+It's possible to exercise extra control over the details of the match by using a pattern object instead of just a string. This allows you to control the so called regex flags and match various types of fixed strings, as described below.
 
 ### **15.5.1 Regex flags**
 
@@ -16,11 +16,10 @@ There are various usable instructions to provide command-specific regular expres
 
 The following command only returns the lines that exactly match the wording and case-sensitivity of search prompt 'banana'
 
-```{r}
+```{r, echo = 'FALSE', message = 'FALSE', warnings = 'FALSE'}
 library(tidyverse)
 library(stringr)
 ```
-
 
 ```{r}
 bananas <- c("banana", "Banana", "BANANA")
@@ -101,7 +100,7 @@ str_view("x X", fixed("X", ignore_case = TRUE))
 #> [1] │ <x> <X>
 ```
 
-Using regex on languages other than english, usage of  [`coll()`](https://stringr.tidyverse.org/reference/modifiers.html) is recommended versus using  [`fixed()`](https://stringr.tidyverse.org/reference/modifiers.html), as it can read the string according to the specified  `locale` . 
+Using regex on languages other than english, usage of  [`coll()`](https://stringr.tidyverse.org/reference/modifiers.html) is recommended versus using  [`fixed()`](https://stringr.tidyverse.org/reference/modifiers.html), as it can read the string according to the specified  `locale` .
 
 ```{r}
 str_view("i İ ı I", fixed("İ", ignore_case = TRUE))
@@ -128,7 +127,6 @@ Since 'ki' does not have any language-specific letters in it, we can use ignore_
 library(stringr)
 str_view(my_sentence, regex('ki', ignore_case = TRUE))
 ```
-
 
 We can also combine the command 'multiline' to find where it occurs as the first word in a line.
 
@@ -168,4 +166,3 @@ my_sentence %>%
   print()
 
 ```
-

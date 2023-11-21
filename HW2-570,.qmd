@@ -1,7 +1,7 @@
 ---
 title: "STAT570-HW2"
 author: "Levent Sarı - 2290930"
-format: html
+format: pdf
 editor: visual
 warning: FALSE
 ---
@@ -46,7 +46,7 @@ str_view(x, regex(".Line", dotall = TRUE))
 #>     │ Line> 3
 ```
 
-The command above provides the locations of every pre-'Line' letter in a separate row by finding the '\\n' operators before 'Line' commands, as `dotall = TRUE` instructs it to.
+The command above provides the locations of every pre-'Line' word by finding the '\\n' operators before 'Line' commands, as `dotall = TRUE` instructs it to.
 
 -   `multiline = TRUE` makes `^` and `$` match the start and end of each line rather than the start and end of the complete string:
 
@@ -62,7 +62,7 @@ str_view(x, regex("^Line", multiline = TRUE))
 #>     │ <Line> 3
 ```
 
-It is also possible to commentate on regular expressions similra to base R using `#`. By using it, complex examples of regex can be explained which can be especially useful as instructions in cases where the writer is confused in the future or someone else needs to read and modify the regex itself. It is possible to use white-spaces and every operator after the `#` marker. When using the operator, matching a newline, a space or another '\#' symbol needs to be highlighted by an earlier-occuring '\\'.
+It is also possible to commentate on regular expressions similar to base R using `#`. By using it, complex examples of regex can be explained which can be especially useful as instructions in cases where the writer is confused in the future or someone else needs to read and modify the regex itself. It is possible to use white-spaces and every operator after the `#` marker. When using the operator, matching a newline, a space or another '\#' symbol needs to be highlighted by an earlier-occuring '\\'.
 
 ```{r}
 phone <- regex(
@@ -100,7 +100,7 @@ str_view("x X", fixed("X", ignore_case = TRUE))
 #> [1] │ <x> <X>
 ```
 
-Using regex on languages other than english, usage of  [`coll()`](https://stringr.tidyverse.org/reference/modifiers.html) is recommended versus using  [`fixed()`](https://stringr.tidyverse.org/reference/modifiers.html), as it can read the string according to the specified  `locale` .
+Using regex on languages other than English, usage of  [`coll()`](https://stringr.tidyverse.org/reference/modifiers.html) is recommended versus using  [`fixed()`](https://stringr.tidyverse.org/reference/modifiers.html), as it can read the string according to the specified  `locale` .
 
 ```{r}
 str_view("i İ ı I", fixed("İ", ignore_case = TRUE))
@@ -111,13 +111,15 @@ str_view("i İ ı I", coll("İ", ignore_case = TRUE, locale = "tr"))
 
 ### **15.5.L Self-made Example**
 
+Künstliche Intelligenz, auch bekannt als \\nKi, ûnd ihr ûmfassender Einfluss in unserer modernen\\nGesellschaft sind ûnleugbar. Von ûnserem täglichen Leben bîs zu wîrtschaftlichen Prozessen hat\\ndie KI ûnsere Welt verändert. Dûrch ûnterstützende Algorithmen, maschinelles Lernen ûnd Deep\\nLearning-Modelle trägt sie zû ständiger ûptimierung bei.Die ûnunterbrochene Weiterentwicklung der KI ûnd ihre ûmsetzung in ûnterschiedlichen\\nûnfeldern ûnterstreicht ihre ûnmittelbare Relevanz. Ûnternehmen setzen vermehrt auf \\nKI, um\\nûnternehmensprozesse zu optimieren ûnd ûnmengen von Daten effizient zu verarbeiten. Ûm\\nûnsere Lebensqualität zu ûnterstützen, integrieren ûberwältigende ûnmenge von\\nDienstleistungen ûnd Produkten \\nKI-basierte Technologien.\\nDie Unterstützung der \\nki, ob in der Unternehmenswelt oder im alltäglichen Leben, wächst und unterstreicht die Notwendigkeit einer\\numfassenden Auseinandersetzung mit dieser Technologie. Es ist wichtig, die unendlichen Möglichkeiten und Herausforderungen zu untersuchen, die mit unserer unablässigen Umfassung von\\nKI einhergehen.
+
 ```{r}
 
 my_sentence = 'Künstliche Intelligenz, auch bekannt als \nKi, ûnd ihr ûmfassender Einfluss in unserer modernen\nGesellschaft sind ûnleugbar. Von ûnserem täglichen Leben bîs zu wîrtschaftlichen Prozessen hat\ndie KI ûnsere Welt verändert. Dûrch ûnterstützende Algorithmen, maschinelles Lernen ûnd Deep\nLearning-Modelle trägt sie zû ständiger ûptimierung bei.Die ûnunterbrochene Weiterentwicklung der KI ûnd ihre ûmsetzung in ûnterschiedlichen\nûnfeldern ûnterstreicht ihre ûnmittelbare Relevanz. Ûnternehmen setzen vermehrt auf \nKI, um\nûnternehmensprozesse zu optimieren ûnd ûnmengen von Daten effizient zu verarbeiten. Ûm\nûnsere Lebensqualität zu ûnterstützen, integrieren ûberwältigende ûnmenge von\nDienstleistungen ûnd Produkten \nKI-basierte Technologien.\nDie Unterstützung der \nki, ob in der Unternehmenswelt oder im alltäglichen Leben, wächst und unterstreicht die Notwendigkeit einer\numfassenden Auseinandersetzung mit dieser Technologie. Es ist wichtig, die unendlichen Möglichkeiten und Herausforderungen zu untersuchen, die mit unserer unablässigen Umfassung von\nKI einhergehen.'
 
 ```
 
-Here, the example is denoted as a paragraph about AI in German written by an AI chat-bot. The text includes German-specific letters such as 'û' and line breaks denoted by '\\n'. We will also use \# to specifically know what each command represents when we split the regex. We will now separately find all occurences of the word 'ki' as well as 'ûm'.
+Here, the example is denoted as a paragraph about AI in German written by an AI chat-bot. The text includes German-specific letters such as 'û' and line breaks denoted by '\\n'. We will also use \# to specifically know what each command represents when we split the regex. We will now separately find all occurences of the word 'ki' as well as 'û'.
 
 -   Finding all occurences of 'ki' that occur at the beginning of lines.
 
@@ -135,7 +137,7 @@ library(stringr)
 str_view(my_sentence, regex('^ki', multiline = TRUE, ignore_case = TRUE))
 ```
 
--   Finding all occurences of 'ûm' that occur at the beginning of lines.
+-   Finding all occurences of 'û' that occur at the beginning of lines.
 
 Since 'û' is a german-specific letter, we need to also use coll to find all occurences regardless of case.
 
